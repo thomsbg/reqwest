@@ -235,7 +235,8 @@
   }
 
   function setType(header) {
-    // json, javascript, text/plain, text/html, xml
+    // json, javascript, text/plain, text/html, xml, empty
+    if (!header) return 'empty'
     if (header.match('json')) return 'json'
     if (header.match('javascript')) return 'js'
     if (header.match('text')) return 'html'
@@ -330,7 +331,12 @@
             ? null
             : resp.responseXML
           break
+        case 'empty':
+          resp = null
+          break
         }
+      } else if (type === 'empty') {
+        resp = null;
       }
 
       self._responseArgs.resp = resp
